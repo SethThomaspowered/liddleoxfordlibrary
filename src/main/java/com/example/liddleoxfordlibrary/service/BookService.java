@@ -1,11 +1,13 @@
 package com.example.liddleoxfordlibrary.service;
 
+import com.example.liddleoxfordlibrary.exception.InformationNotFoundException;
 import com.example.liddleoxfordlibrary.model.Book;
 import com.example.liddleoxfordlibrary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
@@ -23,9 +25,14 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Book getBook(Long bookId){
+    public Optional<Book> getBook(Long bookId){
         LOGGER.info("calling getBook method from service");
-
+        Optional<Book> book = bookRepository.findById(bookId);
+        if (book.isPresent()){
+            return book;
+        } else {
+            throw new InformationNotFoundException("book with id " + bookId + " not found.");
+        }
     }
 
 }
