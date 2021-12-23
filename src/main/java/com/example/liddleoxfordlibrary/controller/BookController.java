@@ -30,7 +30,17 @@ public class BookController {
     }
     @PostMapping("/books")
     public Book createNewBook(@RequestBody Book bookObject) {
-        LOGGER.info("calling createCategory method from controller");
+        LOGGER.info("calling createNewBook method from controller");
         return bookService.createNewBook(bookObject);
+    }
+    @PutMapping("/books/{bookId}")
+    public Book updateBook(@PathVariable(value = "bookId") Long bookId, @RequestBody Book bookObject){
+        LOGGER.info("calling updateBook method from controller");
+        return bookService.updateBook(bookId, bookObject);
+    }
+    @DeleteMapping("/books/{bookId}")
+    public Optional<Book> deleteBook(@PathVariable(value = "bookId") Long bookId){
+        LOGGER.info("calling deleteBook method from controller");
+        return bookService.deleteBook(bookId);
     }
 }

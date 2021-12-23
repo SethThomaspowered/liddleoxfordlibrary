@@ -45,4 +45,33 @@ public class BookService {
             return bookRepository.save(bookObject);
         }
     }
+    public Book updateBook(Long bookId, @RequestBody Book bookObject) {
+        LOGGER.info("calling updateBook method from service");
+        Optional<Book> book = bookRepository.findById(bookId);
+        // findById
+        if (book.isPresent()) {
+            // check the category name match with the category name in the DB
+            if (bookObject.getTitle().equals(book.get().getTitle())) {
+                LOGGER.warning("book name is equal to database object name");
+                throw new InformationExistsException("Book " + book.get().getTitle() + " is already exists");
+            } else {
+                // find the category and update with new information
+                Book updateBook = bookRepository.findById(bookId).get();
+                updateBook.setTitle(bookObject.getTitle());
+                updateBook.setAuthor(bookObject.getAuthor());
+                return bookRepository.save(updateBook);
+            }
+        } else {
+            throw new InformationNotFoundException("book with id " + bookId + " not found");
+        }
+    }
+    public Optional<Book> deleteBook(Long bookId) {
+        LOGGER.info("calling deleteBook method from service");
+        Optional<Book> book = bookRepository.findById(bookId);
+        if (book.isPresent()) {
+            bookRepository.deleteById(bookId);
+            return book;
+        } else {
+            throw new InformationNotFoundException("Book with id " + bookId + " not found");
+        }
 }
