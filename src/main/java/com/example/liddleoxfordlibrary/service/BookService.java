@@ -74,4 +74,5 @@ public class BookService {
         } else {
             throw new InformationNotFoundException("Book with id " + bookId + " not found");
         }
+    }
 }
