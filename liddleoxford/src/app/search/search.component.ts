@@ -6,8 +6,11 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  book: string = "";
+  book: string = "Harry Potter";
   info: any;
+  title: string|null = "";
+  description: string|null = "";
+  image: string|null= "";
   constructor(private http: HttpClient) { }
   findBook(book: string){
     this.http
@@ -15,6 +18,9 @@ export class SearchComponent implements OnInit {
     .subscribe((response) => {
       console.log(response);
       this.info = response;
+      this.title = this.info.items[0].volumeInfo.title;
+      this.description = this.info.items[0].volumeInfo.description;
+      this.image = this.info.items[0].volumeInfo.imageLinks.smallThumbnail;
     });
   }
   ngOnInit(): void {
