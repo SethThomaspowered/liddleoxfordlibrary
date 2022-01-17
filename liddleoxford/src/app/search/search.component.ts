@@ -11,6 +11,7 @@ export class SearchComponent implements OnInit {
   title: string|null = "";
   description: string|null = "";
   image: string|null= "";
+  googleId: string|null= "";
   constructor(private http: HttpClient) { }
   findBook(book: string){
     this.http
@@ -21,6 +22,7 @@ export class SearchComponent implements OnInit {
       this.title = this.info.items[0].volumeInfo.title;
       this.description = this.info.items[0].volumeInfo.description;
       this.image = this.info.items[0].volumeInfo.imageLinks.smallThumbnail;
+      this.googleId = this.info.items[0].id;
     });
   }
   ngOnInit(): void {

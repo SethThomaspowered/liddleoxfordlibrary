@@ -5,6 +5,7 @@
     <input (click)="findBook(book)" type="submit" value="Search">
 </section>
 <section *ngIf="info">
+    <p>{{googleId}}</p>
     <h3>Here is the first result from your search: {{title}}</h3>
     <p>{{description}}</p>
     <img src="{{image}}">
