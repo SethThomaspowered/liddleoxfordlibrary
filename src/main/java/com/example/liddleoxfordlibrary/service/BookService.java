@@ -38,9 +38,9 @@ public class BookService {
     }
     public Book createNewBook(@RequestBody Book bookObject){
         LOGGER.info("calling createCategory method from service");
-        Book book = bookRepository.findByTitle(bookObject.getTitle());
+        Book book = bookRepository.findByBookTitle(bookObject.getBookTitle());
         if (book !=null){
-            throw new InformationExistsException("book with name " + book.getTitle() + "already exists");
+            throw new InformationExistsException("book with name " + book.getBookTitle() + "already exists");
         }else{
             return bookRepository.save(bookObject);
         }
@@ -51,14 +51,18 @@ public class BookService {
         // findById
         if (book.isPresent()) {
             // check the category name match with the category name in the DB
-            if (bookObject.getTitle().equals(book.get().getTitle())) {
+            if (bookObject.getBookTitle().equals(book.get().getBookTitle())) {
                 LOGGER.warning("book name is equal to database object name");
-                throw new InformationExistsException("Book " + book.get().getTitle() + " is already exists");
+                throw new InformationExistsException("Book " + book.get().getBookTitle() + " is already exists");
             } else {
                 // find the category and update with new information
                 Book updateBook = bookRepository.findById(bookId).get();
-                updateBook.setTitle(bookObject.getTitle());
-                updateBook.setAuthor(bookObject.getAuthor());
+                updateBook.setBookTitle(bookObject.getBookTitle());
+                updateBook.setAuthorName(bookObject.getAuthorName());
+                updateBook.setDateAdded(bookObject.getDateAdded());
+                updateBook.setCheckedOut(bookObject.isCheckedOut());
+                updateBook.setDateRemoved(bookObject.getDateRemoved());
+                updateBook.setGoogleBooksId(bookObject.getGoogleBooksId());
                 return bookRepository.save(updateBook);
             }
         } else {

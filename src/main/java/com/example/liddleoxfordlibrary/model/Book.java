@@ -2,6 +2,7 @@ package com.example.liddleoxfordlibrary.model;
 
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="books")
@@ -12,17 +13,34 @@ public class Book {
     private Long id;
 
     @Column
-    private String title;
+    private String bookTitle;
     @Column
-    private String author;
+    private String authorName;
+
+    @Column
+    private Date dateAdded;
+
+    @Column
+    private boolean checkedOut;
+
+    @Column
+    private Date dateRemoved;
+
+    @Column
+    private String googleBooksId;
+
 
     public Book() {
     }
 
-    public Book(Long id, String title, String author) {
+    public Book(Long id, String bookTitle, String authorName, Date dateAdded, boolean checkedOut, Date dateRemoved, String googleBooksId) {
         this.id = id;
-        this.title = title;
-        this.author = author;
+        this.bookTitle = bookTitle;
+        this.authorName = authorName;
+        this.dateAdded = dateAdded;
+        this.checkedOut = checkedOut;
+        this.dateRemoved = dateRemoved;
+        this.googleBooksId = googleBooksId;
     }
 
     public Long getId() {
@@ -33,19 +51,51 @@ public class Book {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getBookTitle() {
+        return bookTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public Date getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(Date dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public boolean isCheckedOut() {
+        return checkedOut;
+    }
+
+    public void setCheckedOut(boolean checkedOut) {
+        this.checkedOut = checkedOut;
+    }
+
+    public Date getDateRemoved() {
+        return dateRemoved;
+    }
+
+    public void setDateRemoved(Date dateRemoved) {
+        this.dateRemoved = dateRemoved;
+    }
+
+    public String getGoogleBooksId() {
+        return googleBooksId;
+    }
+
+    public void setGoogleBooksId(String googleBooksId) {
+        this.googleBooksId = googleBooksId;
     }
 }
